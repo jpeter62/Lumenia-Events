@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eventful - Premium Event Management</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+        
+        .heading-font {
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .hero-gradient {
+            /* Adjusted for video overlay */
+            background: linear-gradient(135deg, rgba(32, 40, 48, 0.4) 0%, rgba(12, 52, 77, 0.6) 100%); 
+        }
+
+        .hero-video-overlay {
+             /* Use the gradient class directly on the overlay div for control */
+            background: linear-gradient(135deg, rgba(32, 40, 48, 0.4) 0%, rgba(12, 52, 77, 0.6) 100%); 
+        }
+
+        .card-hover {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px #176595;
+        }
+        
+        .fade-in {
+            animation: fadeInUp 1s ease-out;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .nav-link {
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg,#bfcbda 0%, #2b6b93 100%);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .mobile-menu {
+            display: none;
+        }
+        
+        .mobile-menu.active {
+            display: flex;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #bfcbda 0%, #2b6b93 100%);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px #2b6b93;
+        }
+        
+        .text-primary {
+            color: #0c344d;
+        }
+        
+        .bg-primary {
+            background: linear-gradient(135deg, #bfcbda 0%, hsl(203, 55%, 37%) 100%);
+        }
+        
+        .icon-bg {
+            background: linear-gradient(135deg, #bfcbda 0%, #2b6b93 100%);
+        }
+        
+        @media (max-width: 768px) {
+            .hero-text {
+                font-size: 2rem !important;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="fixed top-0 left-0 right-0 bg-white/95 backdrop-blur-lg z-50 shadow-sm">
+        <nav class="max-w-7xl mx-auto px-6 lg:px-8 py-4">
+            <div class="flex items-center justify-between">
+                <!-- Logo -->
+                <div class="flex items-center space-x-3">
+                    <!-- Logo SVG Placeholder -->
+                    <div class="w-10 h-10">
+                        
+                    </div>
+                    <span class="text-2xl font-bold heading-font text-gray-900">Lumenia Events</span>
+                </div>
+                
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#home" class="nav-link text-gray-700 hover:text-primary font-medium">Home</a>
+                    <a href="#services" class="nav-link text-gray-700 hover:text-primary font-medium">Services</a>
+                    <a href="#about" class="nav-link text-gray-700 hover:text-primary font-medium">About</a>
+                    <a href="#gallery" class="nav-link text-gray-700 hover:text-primary font-medium">Gallery</a>
+                    <a href="#contact" class="nav-link text-gray-700 hover:text-primary font-medium">Contact</a>
+                </div>
+                
+                <div class="hidden md:flex items-center">
+                    <a href="#contact" class="btn-primary text-white px-6 py-2.5 rounded-lg font-semibold">
+                       Get Started
+                    </a>
+
+                </div>
+                
+                <!-- Mobile Menu Button -->
+                <button onclick="toggleMenu()" class="md:hidden p-2 rounded-lg hover:bg-gray-100">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                    </svg>
+                </button>
+            </div>
+            
+            <!-- Mobile Menu -->
+            <div id="mobileMenu" class="mobile-menu flex-col space-y-4 mt-4 pb-4 border-t pt-4">
+                <a href="#home" class="text-gray-700 hover:text-primary font-medium">Home</a>
+                <a href="#services" class="text-gray-700 hover:text-primary font-medium">Services</a>
+                <a href="#about" class="text-gray-700 hover:text-primary font-medium">About</a>
+                <a href="#gallery" class="text-gray-700 hover:text-primary font-medium">Gallery</a>
+                <a href="#contact" class="text-gray-700 hover:text-primary font-medium">Contact</a>
+                <button class="btn-primary text-white px-6 py-2.5 rounded-lg font-semibold w-full">
+                    Get Started
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section: Video Background Added Here -->
+    <section id="home" class="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
+        <div class="absolute inset-0 z-0">
+    <video autoplay muted loop playsinline class="w-full h-full object-cover">
+        <source src="./videos/Elseena.mp4" type="video/mp4">
+    </video>
+    <div class="absolute inset-0 hero-video-overlay opacity-80"></div> <!-- Optional color overlay -->
+</div>
+
+        
+        <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 text-center fade-in">
+            <h1 class="hero-text heading-font text-5xl md:text-7xl font-black text-white mb-6 leading-tight">
+                Crafting Unforgettable<br>Moments
+            </h1>
+            <p class="text-xl md:text-2xl text-white/90 mb-10 max-w-3xl mx-auto">
+                Transform your vision into reality with bespoke events that leave lasting impressions
+            </p>
+        </div>
+        
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
+            </svg>
+        </div>
+    </section>
+
+    <!-- Services Section (No changes needed here) -->
+    <section id="services" class="py-24 bg-gradient-to-b from-gray-50 to-white">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="heading-font text-4xl md:text-5xl font-black text-gray-900 mb-6">Our Services</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    From intimate gatherings to grand celebrations, we bring your vision to life
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="card-hover bg-white rounded-2xl overflow-hidden shadow-lg">
+                    <div class="h-64 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=800&q=80')">
+                        <div class="h-full bg-gradient-to-t from-black/60 to-transparent flex items-end p-6">
+                            <h3 class="text-2xl font-bold text-white">Private Parties</h3>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-gray-600 mb-4">Celebrate life's special moments with personalized parties that wow your guests.</p>
+                        <ul class="space-y-2 mb-6">
+                            <li class="flex items-center text-sm text-gray-600">
+                                <svg class="w-5 h-5 text-primary mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                </svg>
+                                Birthday celebrations
+                            </li>
+                            <li class="flex items-center text-sm text-gray-600">
+                                <svg class="w-5 h-5 text-primary mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                </svg>
+                                Anniversary parties
+                            </li>
+                            <li class="flex items-center text-sm text-gray-600">
+                                <svg class="w-5 h-5 text-primary mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                </svg>
+                                Social gatherings
+                            </li>
+                        </ul>
+                       
+                    </div>
+                </div>
+                
+                <!-- Decor & Theming Service -->
+                <div class="card-hover bg-white rounded-2xl overflow-hidden shadow-lg">
+                    <div class="h-64 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=800&q=80')">
+                        <div class="h-full bg-gradient-to-t from-black/60 to-transparent flex items-end p-6">
+                            <h3 class="text-2xl font-bold text-white">Decor & Theming</h3>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-gray-600 mb-4">We design unique themes that match your style, event purpose, and personality.</p>
+                        <ul class="space-y-2 mb-6">
+                            <li class="flex items-center text-sm text-gray-600">
+                                <svg class="w-5 h-5 text-primary mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                </svg>
+                                Complete Decoration Setup
+                            </li>
+                            <li class="flex items-center text-sm text-gray-600">
+                                <svg class="w-5 h-5 text-primary mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                </svg>
+                                Stylish & Trend-Focused Designs
+                            </li>
+                            <li class="flex items-center text-sm text-gray-600">
+                                <svg class="w-5 h-5 text-primary mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                </svg>
+                                Personalized Concepts
+                            </li>
+                        </ul>
+                        
+                    </div>
+                </div>
+
+
+                <!-- Photography -->
+                <div class="card-hover bg-white rounded-2xl overflow-hidden shadow-lg">
+                    <div class="h-64 bg-cover bg-center" style="background-image: url('/images/Event-photography-ideas-1.jpg')">
+                        <div class="h-full bg-gradient-to-t from-black/60 to-transparent flex items-end p-6">
+                            <h3 class="text-2xl font-bold text-white">Photography</h3>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-gray-600 mb-4">Capturing candid moments, details, décor, and guests. </p>
+                        <ul class="space-y-2 mb-6">
+                            <li class="flex items-center text-sm text-gray-600">
+                                <svg class="w-5 h-5 text-primary mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                </svg>
+                                Creative Portrait Shots
+                            </li>
+                            <li class="flex items-center text-sm text-gray-600">
+                                <svg class="w-5 h-5 text-primary mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                </svg>
+                                Mood & Atmosphere Shots
+                            </li>
+                            <li class="flex items-center text-sm text-gray-600">
+                                <svg class="w-5 h-5 text-primary mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                </svg>
+                                High-Quality Event Coverage
+                            </li>
+                        </ul>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section: Made clickable to link to event_detail.html -->
+    <section id="gallery" class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="heading-font text-4xl md:text-5xl font-black text-gray-900 mb-6">Featured Events</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Explore our portfolio of stunning events
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Event 1: Elegant Garden Wedding -->
+                <a href="event_detail.html" data-event-id="elseena-shower" class="event-card-link card-hover relative h-80 rounded-2xl overflow-hidden group block">
+                    <img src="/images/ec.jpg" 
+                         class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" 
+                         alt="Bridal Shower">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent flex items-end p-6">
+                        <div class="text-white">
+                            <h3 class="text-2xl font-bold mb-2">Elseena's Bridal Shower</h3>
+                            <p class="text-white/80">Light Blue Theme • Indoor venue</p>
+                        </div>
+                    </div>
+                </a>
+                
+                <!-- Event 2: Tech Conference 2024 -->
+                <a href="event_detail.html" data-event-id="nathaniel-birthday" class="event-card-link card-hover relative h-80 rounded-2xl overflow-hidden group block">
+                    <img src="/images/tahku cover.jpeg" 
+                         class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" 
+                         alt="Nathaniel's First Birthday">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent flex items-end p-6">
+                        <div class="text-white">
+                            <h3 class="text-2xl font-bold mb-2">Nathaniel's First Birthday</h3>
+                            <p class="text-white/80">Green Theme • Child's Milestone</p>
+                        </div>
+                    </div>
+                </a>
+                
+                <!-- Event 3: Milestone Birthday Bash -->
+                <a href="event_detail.html" data-event-id="bash-explorer" class="event-card-link card-hover relative h-80 rounded-2xl overflow-hidden group block">
+                    <img src="/images/bdey.jpeg" 
+                         class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" 
+                         alt="Birthday Bashes">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent flex items-end p-6">
+                        <div class="text-white">
+                            <h3 class="text-2xl font-bold mb-2">Birthday Bashes & Anniversaries</h3>
+                            <p class="text-white/80">Milestone Celebrations • Multi-event Portfolio</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About/Approach Section (No changes needed here) -->
+    <section id="about" class="py-24 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="heading-font text-4xl md:text-5xl font-black text-gray-900 mb-6">Our Approach</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    We believe in a personalized approach to event planning, working closely with you to create seamless and memorable experiences
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="card-hover bg-white p-8 rounded-2xl shadow-lg">
+                    <div class="w-16 h-16 icon-bg rounded-xl flex items-center justify-center mb-6">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="white" viewBox="0 0 256 256">
+                            <path d="M208,32H184V24a8,8,0,0,0-16,0v8H88V24a8,8,0,0,0-16,0v8H48A16,16,0,0,0,32,48V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V48A16,16,0,0,0,208,32ZM72,48v8a8,8,0,0,0,16,0V48h80v8a8,8,0,0,0,16,0V48h24V80H48V48ZM208,208H48V96H208V208Z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4">Tailored Planning</h3>
+                    <p class="text-gray-600">We customize every event to match your unique vision and style, ensuring a personalized experience that reflects your personality.</p>
+                </div>
+                
+                <div class="card-hover bg-white p-8 rounded-2xl shadow-lg">
+                    <div class="w-16 h-16 icon-bg rounded-xl flex items-center justify-center mb-6">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="white" viewBox="0 0 256 256">
+                            <path d="M117.25,157.92a60,60,0,1,0-66.5,0A95.83,95.83,0,0,0,3.53,195.63a8,8,0,1,0,13.4,8.74,80,80,0,0,1,134.14,0,8,8,0,0,0,13.4-8.74A95.83,95.83,0,0,0,117.25,157.92ZM40,108a44,44,0,1,1,44,44A44.05,44.05,0,0,1,40,108Zm210.14,98.7a8,8,0,0,1-11.07-2.33A79.83,79.83,0,0,0,172,168a8,8,0,0,1,0-16,44,44,0,1,0-16.34-84.87,8,8,0,1,1-5.94-14.85,60,60,0,0,1,55.53,105.64,95.83,95.83,0,0,1,47.22,37.71A8,8,0,0,1,250.14,206.7Z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4">Expert Coordination</h3>
+                    <p class="text-gray-600">Our experienced team manages all logistics, so you can relax and enjoy your event without worrying about the details.</p>
+                </div>
+                
+               <div class="card-hover bg-white p-8 rounded-2xl shadow-lg">
+    <div class="w-16 h-16 icon-bg rounded-xl flex items-center justify-center mb-6">
+        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="white" viewBox="0 0 256 256">
+            <path d="M228,88V200a12,12,0,0,1-12,12H40a12,12,0,0,1-12-12V88A12,12,0,0,1,40,76H216A12,12,0,0,1,228,88ZM216,40H40A12,12,0,0,0,28,52V64H228V52A12,12,0,0,0,216,40ZM208,136a8,8,0,0,0-8,8v32a8,8,0,0,0,16,0V144A8,8,0,0,0,208,136Z"/>
+        </svg>
+    </div>
+    <h3 class="text-2xl font-bold text-gray-900 mb-4">Limitless Creativity</h3>
+    <p class="text-gray-600">We specialize in transforming private homes, auditoriums, and unique spaces into personalized, stunning environments tailored exactly to your event vision.</p>
+</div>
+        </div>
+    </section>
+
+    <!-- Contact/CTA Section (No changes needed here) -->
+    <section id="contact" class="bg-primary py-24">
+        <div class="max-w-4xl mx-auto px-6 lg:px-8 text-center">
+            <h2 class="heading-font text-4xl md:text-5xl font-black text-white mb-6">Ready to Create Your Perfect Event?</h2>
+            <p class="text-xl text-white/90 mb-10 max-w-2xl mx-auto">
+                Let's bring your vision to life. Contact us today for a free consultation and discover how we can make your event extraordinary.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+                <button class="bg-white text-primary px-8 py-4 rounded-lg font-bold text-lg hover:bg-gray-50 transition-all transform hover:scale-105">
+                    Call Us Now
+                </button>
+            </div>
+            
+            <!-- Contact Info -->
+            <div class="grid md:grid-cols-3 gap-8 mt-16 text-white">
+                <div>
+                    <svg class="w-8 h-8 mx-auto mb-3 text-white/80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                    </svg>
+                    <h4 class="font-bold mb-2">Phone</h4>
+                    <p class="text-white/80">+43 677 61970086</p>
+                </div>
+                <div>
+                    <svg class="w-8 h-8 mx-auto mb-3 text-white/80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                    </svg>
+                    <h4 class="font-bold mb-2">Email</h4>
+                    <p class="text-white/80">hello@lumenia.com</p>
+                </div>
+                <div>
+                    <svg class="w-8 h-8 mx-auto mb-3 text-white/80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                    </svg>
+                    <h4 class="font-bold mb-2">Location</h4>
+                    <p class="text-white/80">Salzburg, City</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer (No changes needed here) -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10">
+                            
+                        </div>
+                        <span class="text-xl font-bold heading-font">Lumenia Events</span>
+                    </div>
+                    <div class="flex space-x-4">
+                        
+                       
+                        
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold mb-4 text-lg">Quick Links</h4>
+                    <div class="space-y-2">
+                        <a href="#home" class="block text-gray-400 hover:text-white transition-colors">Home</a>
+                        <a href="#services" class="block text-gray-400 hover:text-white transition-colors">Services</a>
+                        <a href="#about" class="block text-gray-400 hover:text-white transition-colors">About</a>
+                        <a href="#gallery" class="block text-gray-400 hover:text-white transition-colors">Gallery</a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold mb-4 text-lg">Services</h4>
+                    <div class="space-y-2">
+                        <a href="#" class="block text-gray-400 hover:text-white transition-colors">Private Parties</a>
+                        <a href="#" class="block text-gray-400 hover:text-white transition-colors">Decor & Theming</a>
+                        <a href="#" class="block text-gray-400 hover:text-white transition-colors">Photography</a>
+                    </div>
+                </div>
+                           <div>
+    <h4 class="font-bold mb-4 text-lg">Get In Touch</h4>
+    <p class="text-gray-400 text-sm mb-4">Interested in planning an event? Send us your details and we'll reach out.</p>
+
+    <!-- Netlify Form -->
+    <form name="contact" method="POST" data-netlify="true" class="flex flex-col gap-2">
+        
+        <!-- Netlify Hidden Form Input -->
+        <input type="hidden" name="form-name" value="contact">
+
+        <input type="text" name="name" placeholder="Your Name" required
+            class="px-4 py-2 rounded-lg bg-gray-800 border border-gray-700 text-white placeholder-gray-500 focus:outline-none focus:border-[#e5c346]">
+
+        <input type="email" name="email" placeholder="Your Email" required
+            class="px-4 py-2 rounded-lg bg-gray-800 border border-gray-700 text-white placeholder-gray-500 focus:outline-none focus:border-[#e5c346]">
+
+        <textarea name="message" placeholder="Tell us about your event..." rows="3" required
+            class="px-4 py-2 rounded-lg bg-gray-800 border border-gray-700 text-white placeholder-gray-500 focus:outline-none focus:border-[#e5c346]"></textarea>
+
+        <button type="submit" class="btn-primary text-white px-4 py-2 rounded-lg font-semibold transition-colors">
+            Send Inquiry
+        </button>
+    </form>
+
+    <!-- 🌿 Success message -->
+    <div class="text-green-400 mt-2 hidden" id="successMsg">
+        Thank you! We’ll contact you soon.
+    </div>
+</div>
+
+               
+
+                
+                
+                
+            </div>
+            
+            <div class="border-t border-gray-800 pt-8 mt-8">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <p class="text-gray-400 text-sm mb-4 md:mb-0">
+                        © 2025 Lumenia Events. All rights reserved.
+                    </p>
+                    <div class="flex space-x-6 text-sm">
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">Privacy Policy</a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">Terms of Service</a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">Cookie Policy</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+
+         const form = document.querySelector("form[name='contact']");
+    form.addEventListener("submit", () => {
+        document.getElementById("successMsg").classList.remove("hidden");
+    });
+        function toggleMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('active');
+        }
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    // Close mobile menu if open
+                    const menu = document.getElementById('mobileMenu');
+                    menu.classList.remove('active');
+                }
+            });
+        });
+        
+        // Add scroll effect to header
+        let lastScroll = 0;
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            const currentScroll = window.pageYOffset;
+            
+            if (currentScroll > 100) {
+                header.style.boxShadow = '0 2px 10px rgba(0,0,0,0.1)';
+            } else {
+                header.style.boxShadow = '0 1px 3px rgba(0,0,0,0.05)';
+            }
+            
+            lastScroll = currentScroll;
+        });
+
+        // Event Card Click Handler to store data
+        document.querySelectorAll('.event-card-link').forEach(link => {
+            link.addEventListener('click', function (e) {
+                e.preventDefault();
+                const eventId = this.getAttribute('data-event-id');
+                let eventData = {};
+
+                // Mock data based on event ID - replace with real data/API calls later
+               if (eventId === 'elseena-shower') { // Elseena's Bridal Shower
+                    eventData = {
+                        category: "BRIDAL EVENT",
+                        title: "Elseena's Elegant Shower",
+                        description: "A breathtaking celebration for the bride-to-be, Elseena. The atmosphere was defined by light blue elegance, featuring intricate floral arrangements, delicate dessert displays, and a serene outdoor setting. We focused on creating a beautiful, soft transition for her into her marital journey.",
+                        images: [
+                             "./images/en.jpeg",
+                             "./images/es.jpg",
+                            "./images/ese.jpeg",
+                            './images/esa.jpeg',
+                            './images/esal.jpeg',
+                            './images/esss.jpeg'
+                        ]
+                    };
+                }  else if (eventId === 'nathaniel-birthday') { // Nathaniel's First Birthday
+                    eventData = {
+                        category: "CHILD'S MILESTONE",
+                        title: "Nathaniel's First Birthday Bash",
+                        description: "Celebrating Nathaniel's first year with a vibrant green-themed party! We transformed the space into a playful wonderland full of family-friendly activities, custom green and jungle-themed decor, and specialized food stations for both kids and adults. A truly joyful milestone event.",
+                        images: [
+                            './images/ ns.jpg', 
+                            './images/nnn.jpeg',
+                            './images/nt.jpeg',
+                            './images/ni.jpeg',
+                            './images/nl.jpeg',
+                            './images/nj.jpeg'
+                        ]
+                    };
+                }  else if (eventId === 'bash-explorer') { // Birthday Bashes & Anniversaries (Explorer)
+                    eventData = {
+                        category: "PRIVATE PARTIES",
+                        title: "Birthday Bashes & Anniversaries",
+                        description: "Explore our diverse portfolio of memorable milestone celebrations. From intimate anniversary dinners, themed birthday parties, this gallery highlights the variety and custom creativity we bring to every personal event.",
+                        images: [
+                            './images/b.jpeg',
+                            './images/bb.jpeg',
+                            './images/bbb.jpeg',
+                            './images/K.jpeg',
+                            './images/mh.jpeg',
+                            './images/bdy.jpeg'
+                        ]
+                    };
+                }
+
+                // Store data and navigate
+                localStorage.setItem('currentEventData', JSON.stringify(eventData));
+                window.location.href = this.href;
+            });
+        });
+    </script>
+</body>
+</html>
